@@ -1,0 +1,228 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"   
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <f:loadBundle basename="textos.mensajes" var="msj"/>
+
+    <h:head>  
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"></meta>
+        <meta charset="utf-8"></meta>
+        <title><h:outputText value="#{msj.PanAdmin}"/></title>
+        <meta name="generator" content="Bootply"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></meta>
+        <meta http-equiv="X-UA-Conpatible" content="IE=edge"></meta>
+
+        <h:outputStylesheet library="css" name="bootstrap.css"></h:outputStylesheet>  
+        <h:outputStylesheet library="css" name="styles.css"></h:outputStylesheet>  
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"></link>
+        <h:outputStylesheet library="css" name="estiloPropio.css"></h:outputStylesheet>  
+
+        <script src="js/jquery-3.1.1.min.js"></script>
+        <script src="js/bootstrap.js"></script>
+        <script src="js/scripts.js"></script>
+        <script src="js/.npm.js"></script>
+        <script src="js/Date.js" type="text/javascript"></script>
+
+    </h:head>
+
+    <h:body>
+
+        <div id="top-nav" class="navbar navbar-inverse navbar-static-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><h:outputText value="#{msj.PanelAdmin}"/></a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i><h:outputText value="#{msj.Adm}"/><span class="caret"></span></a>
+                            <ul id="g-account-menu" class="dropdown-menu" role="menu">
+                                <li><a href="#">My Profile</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="index.xhtml"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Header -->
+
+        <!-- BARRA LATERAL IZQUIERDA -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2">
+                    <!-- Left column -->
+
+                    <ul class="nav nav-stacked">
+                        <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#userMenu"><h:outputText value="#{msj.Admin}"/><i class="glyphicon glyphicon-chevron-down"></i></a>
+                            <ul class="nav nav-stacked collapse in" id="userMenu">
+                               <li><a href="consulta_actividad.xhtml"><i class="glyphicon glyphicon-th"></i> <h:outputText value=" #{msj.TipoAct}"/></a></li>
+                                <li><a href="consulta_reto.xhtml"><i class="glyphicon glyphicon-stats"></i><h:outputText value=" #{msj.RetosUser}"/></a></li>
+                                <li><a href="consulta_medallasUser.xhtml"><i class="glyphicon glyphicon-user"></i><h:outputText value=" #{msj.MedallaUsuario}"/></a></li>
+                                <li><a href="consulta_medallasAlmacen.xhtml"><i class="glyphicon glyphicon-tower"></i><h:outputText value=" #{msj.MedallaAlmacen}"/></a></li>
+                                <li><a href="consulta_recompensa.xhtml"><i class="glyphicon glyphicon-usd"></i><h:outputText value=" #{msj.Recompensa}"/></a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /col-2 -->
+                <div class="col-md-9">
+                    <a href="#"><strong><i class="glyphicon glyphicon-dashboard" id="label"></i><h:outputText value=" #{msj.Recompensa}"/></strong></a>
+                    <hr></hr>
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <!-- RECOMPENSA-->
+                            <div class="panel panel-default">
+                                <div class="panel-heading" id="titulo">
+                                    <h4><h:outputText value="#{msj.Recompensa}"/></h4>
+                                </div>
+                                <div class="panel-body">
+                                    <h:inputTextarea label="Recompensa" id="mensaje" value="#{beanRecompensa.nombreRecompensa}" 
+                                                    required="true" rows="1" cols="35"/>
+                                   <h:message for="recompensa" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <!-- FECHA -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading" id="titulo">
+                                    <h4><h:outputText value="#{msj.Fecha}"/></h4></div>
+                                <div class="panel-body">      
+                                    <h:outputText value="#{msj.FechasFiltro}"/>
+                                    <br></br>
+                                    <br></br>
+                                    <div class="row">
+                                        <h:outputLabel for="number" value="#{msj.Minima}" style="font-weight:bold; text-align: right" class="col-md-3" /> 
+                                        <p:calendar pattern="dd/MM/yyyy" widgetVar="cal" class="col-md-2" accesskey="true"
+                                                    id="fechaInicio" value="#{beanRecompensa.fechaMin}" required="true" mindate="01-01-2016">
+                                            <p:ajax event="dateSelect" oncomplete="onDateSelect()" id="calendario"></p:ajax>
+                                        </p:calendar>
+                                    </div>
+                                    <br></br>
+                                    <div class="row">
+                                        <h:outputLabel for="number" value="#{msj.Maxima}" style="font-weight:bold; text-align: right" class="col-md-3" /> 
+                                        <p:calendar pattern="dd/MM/yyyy" widgetVar="cal" class="col-md-2" accesskey="true" 
+                                                    id="fechaMax" value="#{beanRecompensa.fechaMax}" required="true"> 
+                                            <p:ajax event="dateSelect" oncomplete="onDateSelect()" id="calendario"></p:ajax>
+                                        </p:calendar>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <!-- MEDALLA  -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading" id="titulo">
+                                    <h4><h:outputText value="#{msj.MedallasUsuario}"/></h4>
+                                </div>
+                                <div class="panel-body">
+                                    <!--multiselect-->
+                                    <h:form>
+                                        <h:panelGrid columns="3" cellpadding="5">
+                                            <h:outputLabel for="menu" />
+                                            <p:selectCheckboxMenu id="menu" value="#{beanRecompensa.MedallaSelec}" label="Medallas"
+                                                                  required="true" filter="true" filterMatchMode="startsWith" panelStyle="width:350px" class="desplegable" style="width: 200%">
+                                                <f:selectItems value="#{beanRecompensa.MedallaUser}" var="n"
+                                                               itemLabel="#{n.nombreMedallaUser}" itemValue="#{n.idMedallaUser}"/>
+                                            </p:selectCheckboxMenu>
+                                        </h:panelGrid>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--        BOTONES     -->   
+                <div class="col-md-offset-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                   <!--         <p:button target="_self"  value="#{msj.Consultar}" class="btn btn-primary col-md-5" id="boton6"
+                                          onclick="consultaRecompensa()">
+                                </p:button>     -->
+                                <p:commandButton class="btn btn-primary col-md-5" id="boton" value="#{msj.Consultar}"
+                                                 action="#{beanRecompensa.consultaRec}">
+                                </p:commandButton> 
+                            </div>
+                        </div>
+                        <br></br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:button target="_self" href="crearRecompensa.xhtml" value="#{msj.CrearRecom}" class="btn btn-primary col-md-5" 
+                                          id="boton5">
+                                </p:button>
+                            </div>
+                        </div>
+                    </div> 
+                    
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <h1>DATOS DE LA CONSULTA</h1>
+
+                            <h:dataTable value="#{beanRecompensa.mostrarRecompensa}" var="o"
+                                         styleClass="order-table" headerClass="order-table-header" 
+                                         rowClasses="order-table-odd-row,order-table-even-row">
+
+                                <h:column>
+                                    <f:facet name="header">Recompensa</f:facet>
+                                        #{o.centro}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Descripción</f:facet>
+                                        #{o.actividad}
+                                </h:column>
+
+                                <h:column>
+                                <f:facet name="header">Fecha mínima</f:facet>
+                                    #{o.fechaMin}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Fecha máxima</f:facet>
+                                        #{o.fechaMax}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Medalla</f:facet>
+                                        #{o.medalla}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Acciones</f:facet>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <p:commandButton class="btn btn-primary col-md-5" id="boton4" value="Eliminar" 
+                                                                 action="#{beanRecompensa.eliminarRecompensa}">
+                                                </p:commandButton> 
+                                            </div>
+                                            <div class="col-md-2">
+                                                <p:commandButton class="btn btn-primary col-md-5" id="boton3" value="Eliminar" 
+                                                                 action="#{beanRecompensa.modificarRecompensa}">
+                                                </p:commandButton> 
+                                            </div>
+                                        </div>
+                                </h:column>
+
+                            </h:dataTable>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>
+
