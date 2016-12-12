@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <script src="jquery-2.0.3.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            
+            function recuperarProvincias(){
+                $.get("provincias.json",function(datos){
+                    manejarProvincias(datos);
+                });
+            }
+            
+            //ponemos script
+            //ponemos en el body provincia y localidaes con div identificado con id
+            //entre los <div> metemos <select>
+            //Recueprar + manejar = tenemos los datos de las provincias
+            //llamar al método, recuperar prov-> body onload (al cargar pagina)
+            //cuando se produzca el evento llamará a la fumción onchange.
+            
+            function manejarProvincias(datos){
+                var listaProvincias=datos;
+                var textoHtml="<select id='provS' onchange='recuperarLocalidades();'>";                       //textoHtml es una variable y punto.
+                for (var i=0;i<listaProvincias.length;i++){         //cada elemento listaProvincias es un elemento Json.
+                    textoHtml+="<option value='"+listaProvincias[i].codigo+"'>";
+                    textoHtml+=listaProvincias[i].nombre+"</option>";
+                }
+                textoHtml+="</select>";     //sería igual que: #textoHtml=textoHtml+"</select>";#
+                $("#listaProvincias").html(textoHtml);
+            }           
+                                                //"textoHtml" es una variable y podría tener cualquier otro nombre.
+            
+            function recuperarLocalidades(){
+                $.get("localidades.json",function(datos){
+                    manejarLocalidades(datos);
+                });
+            }
+                
+             function manejarLocalidades(datos){
+                var listaLocalidades=datos;
+                //recogemos el value de la provincia seleccionada
+                var provinciaSel=$("#provS").val();             //"$("#provS").val();" con esto recojo el dato.
+                var textoHtml="<select>";                       //textoHtml es una variable y punto.
+                for (var i=0;i<listaLocalidades.length;i++){         //cada elemento listaProvincias es un elemento Json.La longitud -1 siempre.
+                    //comprobamos si el idProvincia de la localidad
+                    //q estamos recorriendo coincid con el codigo provincia seleciconada
+                    
+                    //alert(listaLocalidades[i].nombre); (PARA ERROR)
+                    if(provinciaSel==listaLocalidades[i].idProvincia){
+                        textoHtml+="<option>";      //aqui´no necesito asignar un nombre al cod, por eso no pongo value.
+                        textoHtml+=listaLocalidades[i].nombre+"</option>";
+                    }
+                }
+                textoHtml+="</select>";
+                $("#listaLocalidades").html(textoHtml);
+            }         
+            
+            
+        </script>
+        
+    </head>
+    <body onload="recuperarProvincias();">
+    <div>
+        Provincia:<br/>
+        <div id="listaProvincias">
+               
+        </div>
+                
+    <br/>
+            
+        Localidades:<br/>
+         <div id="listaLocalidades">   
+            
+        </div>
+        
+    </div> 
+    </body>
+</html>

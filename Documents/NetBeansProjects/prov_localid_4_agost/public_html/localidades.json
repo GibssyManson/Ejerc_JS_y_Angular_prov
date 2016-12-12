@@ -1,0 +1,72 @@
+[
+    {
+        "nombre": "Mostoles",
+        "id":2,
+        "idProvincia":1
+    },
+    {
+        "nombre": "Santillana",
+        "id":23,
+        "idProvincia":5
+    },
+    {
+        "nombre": "Piedrahita",
+        "id":11,
+        "idProvincia":2
+    },
+    {
+        "nombre": "El Tiemblo",
+        "id":27,
+        "idProvincia":2
+    },
+    {
+        "nombre": "Trujillo",
+        "id":18,
+        "idProvincia":4
+    },
+    {
+        "nombre": "Plasencia",
+        "id":28,
+        "idProvincia":4
+    },
+    {
+        "nombre": "Aranjuez",
+        "id":90,
+        "idProvincia":1
+    },
+    {
+        "nombre": "Gandia",
+        "id":45,
+        "idProvincia":3
+    },
+    {
+        "nombre": "Torrente",
+        "id":90,
+        "idProvincia":3
+    },
+    {
+        "nombre": "Coria",
+        "id":14,
+        "idProvincia":4
+    },
+    {
+        "nombre": "Torrelavega",
+        "id":62,
+        "idProvincia":5
+    },
+    {
+        "nombre": "Suances",
+        "id":67,
+        "idProvincia":5
+    },
+    {
+        "nombre": "Comillas",
+        "id":32,
+        "idProvincia":5
+    },
+    {
+        "nombre": "Navalmoral",
+        "id":40,
+        "idProvincia":2
+    }
+]

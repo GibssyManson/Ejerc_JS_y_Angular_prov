@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!--Habrá dos peticiones AJAX: 1) carga provincia, 2) al elegir prov te da unas localidades para elegir.
+En este ejerc haremos un SELEct en el que se indica la provincia y se le asociará un código que queda oculto
+para luego con ese código indicar las opciones de localidades.Y para ello creamos otra propiedad.-->
+<html>
+    <head>
+        <title>Ejercicio Localidades y Provincias con Angular y noseque</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        
+        <script>
+            var app=angular.module("ajaxprovincias",[]);
+            app.controller("control_provincias",function($scope,$http){
+                //Propiedad q almacenará el array json de provincias
+                //recuperados en la petición get de provincias
+                $scope.provincias="";
+                
+                //propiedad que sirva para almacenar
+                //el código de la provincia seleccionada.
+                $scope.provinciaSel="";
+                //propiedad que recoge las localidades.
+                $scope.localidades="";
+                
+                $scope.elegirProvincia=function(){           //método "elegirProvincia"
+                   var ob=$http.get("provincias.json");
+                    //la llamada a get devuelve un objeto a través de cuya propiedad data
+                   //THEN, podemos definir la funcíon de respuesta a la petición.
+                    ob.then(function(response){        
+
+                        $scope.provincias=response.data;      
+                    });
+                };
+                // Esto no hace falta--> $scope.localidadSel="";
+                
+                $scope.elegirLocalidad=function(){           //método "elegirProvincia"
+                   var ob=$http.get("localidades.json");
+                    //la llamada a get devuelve un objeto a través de cuya propiedad data
+                   //THEN, podemos definir la funcíon de respuesta a la petición.
+                    ob.then(function(response){        
+
+                        $scope.localidades=response.data;      
+                    });
+                };
+            });
+        </script>   
+    </head>
+    
+    <body>
+        <div>Seleccione una provincia</div><br/>
+     
+        <div ng-app="ajaxprovincias" ng-init="elegirProvincia();elegirLocalidad();" ng-controller="control_provincias">
+        
+        Provincia:<br/>
+        <select size="3" ng-model="provinciaSel">           <!--select es como "table" en el otro ejerc. Con "size" nos saldrán todas opciones-->
+                <option ng-repeat="prov in provincias" ng-value={{prov.codigo}}>
+                    {{prov.nombre}}
+                </option>
+            </select>{{provinciaSel}}
+    
+    <br/>
+            
+            Localidades:<br/>
+                <select>
+                       <option ng-if="loc.idProvincia==provinciaSel" ng-repeat="loc in localidades">
+                           {{loc.nombre}}
+                       </option>
+                </select>{{localidadSel}}
+         
+        </div>
+    </body>
+</html>

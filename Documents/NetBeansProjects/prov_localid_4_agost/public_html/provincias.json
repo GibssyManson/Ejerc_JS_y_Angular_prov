@@ -1,0 +1,22 @@
+[
+    {
+        "nombre": "Madrid",
+        "codigo":1
+    },
+        {
+        "nombre": "Avila",
+        "codigo":2
+    },
+        {
+        "nombre": "Valencia",
+        "codigo":3
+    },
+        {
+        "nombre": "Caceres",
+        "codigo":4
+    },
+        {
+        "nombre": "Santander",
+        "codigo":5
+    }
+]
